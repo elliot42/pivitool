@@ -6,7 +6,7 @@ A developer multi-tool for Pivotal Tracker
 
 1. Get Pivitool
 
-2. Find your Pivotal Tracker API token: [https://www.pivotaltracker.com/profile][]
+2. Find your Pivotal Tracker API token: https://www.pivotaltracker.com/profile
 
 3. Put the API token in your $HOME/.pivitool.yaml
 
