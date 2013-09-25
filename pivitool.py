@@ -1,6 +1,9 @@
+#!/usr/bin/env python
+
 import requests
 import yaml
 import os
+import sys
 
 default_pivotal_context = {
     'api_base': 'https://www.pivotaltracker.com/services/v5',
@@ -51,7 +54,7 @@ def backlog_pretty(backlog_items):
     return [story_pretty(story) for story in backlog_items]
 
 class Pivitool:
-    def __init__(self, config=default_config, pivotal_context=default_pivotal_context):
+    def __init__(self, config, pivotal_context):
         self.config = config
         self.pivotal_context = pivotal_context
 
@@ -66,3 +69,18 @@ class Pivitool:
         for story in self.backlog_pretty(project_id):
             print(story)
 
+class Executor:
+    def __init__(self, pivitool):
+        self.pivitool = pivitool
+
+    def run(self, funcname, *args):
+        func = {
+            'backlog': self.pivitool.backlog_pprint,
+        }[funcname]
+
+        func(*args)
+
+if __name__ == '__main__':
+    e = Executor(Pivitool(default_config, default_pivotal_context))
+    argv = sys.argv
+    e.run(argv[1], *argv[2:])
